@@ -33,7 +33,7 @@ public class person : MonoBehaviour
 
         if (isInfected)
         {
-            GetComponent<SpriteRenderer>().color = Color.greeb;
+            GetComponent<SpriteRenderer>().color = Color.green;
             //code to chase alive people
 
             gameObject.tag = "Zombie";
