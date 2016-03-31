@@ -27,7 +27,6 @@ public class person : MonoBehaviour
         if (isAlive)
         {
             //code to run from "zombies"
-            // collison with zombie 
 
         }
 

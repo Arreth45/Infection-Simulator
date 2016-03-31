@@ -19,11 +19,7 @@ public class generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //keep people at max
-        if (currentPeople < 10)
-        {
-            AddPeople();
-        }
+        AddPeople();
     }
     void AddPeople()
     {
