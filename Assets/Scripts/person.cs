@@ -2,7 +2,7 @@
 
 public class person : MonoBehaviour
 {
-    private bool isInfected, isAlive, isDead;
+    public bool isInfected, isAlive, isDead;
     private float runspeed;
     private int infected;
     private float maxPeople;
@@ -33,18 +33,16 @@ public class person : MonoBehaviour
 
         if (isInfected)
         {
-            GetComponent<SpriteRenderer>().color = Color.green;
-            //code to chase alive people
-
+            GetComponent<SpriteRenderer>().color = Color.green;         
             gameObject.tag = "Zombie";
-
-            zombieTime = Random.Range(10, 21);
-            zombieTimer = +Time.deltaTime * 100;
+            zombieTimer += Time.deltaTime;
             if (zombieTimer >= zombieTime)
             {
                 isInfected = false;
                 isDead = true;
             }
+            
+            //code to chase alive people
         }
 
         if (isDead)
@@ -61,6 +59,7 @@ public class person : MonoBehaviour
             {
                 isAlive = false;
                 isInfected = true;
+                zombieTime = Random.Range(10, 21);
             }
         }
 
