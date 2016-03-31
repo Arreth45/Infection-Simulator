@@ -3,17 +3,20 @@
 public class person : MonoBehaviour
 {
     public bool isInfected, isAlive, isDead;
-    private float runspeed;
+    private float humanRunspeed = 10;
+    private float zombieRunspeed = 9;
     private int infected;
-    private float maxPeople;
     private float zombieTime;
-    private float zombieTimer;
+    private float zombieTimer = 0;
+    private Transform target;
+
+    private GameObject[] zombies;
 
     // Use this for initialization
     void Start()
     {
         isAlive = true;
-        infected = Random.Range(1, 11);
+        infected = Random.Range(1, 6);
         if (infected == 1)
         {
             isAlive = false;
@@ -24,24 +27,27 @@ public class person : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        zombies = GameObject.FindGameObjectsWithTag("Zombie");
         if (isAlive)
         {
-            //code to run from "zombies"
-
+            foreach (GameObject zombie in zombies)
+            {
+                transform.Translate(-zombie.transform.localPosition);
+            }
         }
 
         if (isInfected)
         {
-            GetComponent<SpriteRenderer>().color = Color.green;         
             gameObject.tag = "Zombie";
-            zombieTimer += Time.deltaTime;
+            target = GameObject.FindGameObjectWithTag("Person").transform;
+            GetComponent<SpriteRenderer>().color = Color.green;
+            //zombieTimer += Time.deltaTime;
             if (zombieTimer >= zombieTime)
             {
                 isInfected = false;
                 isDead = true;
             }
-            
-            //code to chase alive people
+            transform.Translate(target.localPosition);
         }
 
         if (isDead)
@@ -61,6 +67,5 @@ public class person : MonoBehaviour
                 zombieTime = Random.Range(10, 21);
             }
         }
-
     }
 }
