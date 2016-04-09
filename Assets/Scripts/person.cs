@@ -6,7 +6,7 @@ public class person : MonoBehaviour
     private float humanRunspeed = 2;
     private float zombieRunspeed = 1;
     public int infected;
-    private float zombieTime = -1;
+    private float zombieTime = 0;
     private float zombieTimer = 0;
     private GameObject target;
     public GameObject manager;
@@ -50,7 +50,7 @@ public class person : MonoBehaviour
         {
             humans = GameObject.FindGameObjectsWithTag("Human");
             GetComponent<SpriteRenderer>().color = Color.green;
-            zombieTimer += 0.001f;
+            zombieTimer += Time.deltaTime;
 
             if (zombieTimer > zombieTime)
             {
