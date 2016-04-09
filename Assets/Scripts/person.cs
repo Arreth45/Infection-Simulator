@@ -5,7 +5,7 @@ public class person : MonoBehaviour
     public bool isInfected, isAlive, isDead;
     private float humanRunspeed = 2;
     private float zombieRunspeed = 1;
-    private int infected;
+    public int infected;
     private float zombieTime = -1;
     private float zombieTimer = 0;
     private GameObject target;
@@ -20,15 +20,16 @@ public class person : MonoBehaviour
         manager.GetComponent<generator>().alivePeople++;
         gameObject.tag = "Human";
         isAlive = true;
-        infected = Random.Range(1, 3);
-        if (infected == 2)
+        
+        
+        infected = Random.Range(1, 7);
+        if (infected >= 3)
         {
             isAlive = false;
             isInfected = true;
             manager.GetComponent<generator>().infectedPeople++;
             manager.GetComponent<generator>().alivePeople--;
         }
-
     }
 
     // Update is called once per frame
@@ -49,7 +50,7 @@ public class person : MonoBehaviour
         {
             humans = GameObject.FindGameObjectsWithTag("Human");
             GetComponent<SpriteRenderer>().color = Color.green;
-            zombieTimer += 0.01f;
+            zombieTimer += 0.001f;
 
             if (zombieTimer > zombieTime)
             {
