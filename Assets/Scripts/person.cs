@@ -8,7 +8,7 @@ public class person : MonoBehaviour
     public int infected;
     private float zombieTime = 20;
     private float zombieTimer = 0;
-    private GameObject target;
+    public GameObject target;
     public GameObject manager;
 
     private GameObject[] zombies, humans;
@@ -20,8 +20,8 @@ public class person : MonoBehaviour
         manager.GetComponent<generator>().alivePeople++;
         gameObject.tag = "Human";
         isAlive = true;
-        
-        
+
+
         infected = Random.Range(1, 7);
         if (infected >= 3)
         {
@@ -41,7 +41,8 @@ public class person : MonoBehaviour
             foreach (GameObject zombie in zombies)
             {
                 //code to run from zombies
-                //Kevin is working on this
+                float step = humanRunspeed;
+                transform.position = Vector3.MoveTowards(transform.position, -zombie.transform.position, step);
             }
         }
 
@@ -58,8 +59,14 @@ public class person : MonoBehaviour
                 isDead = true;
             }
 
+            if (target == null)
+            {
+                target = humans[Random.Range(0, humans.Length)];
+            }
+
             //chase humans 
-            //Kevin is working on this
+            float step = zombieRunspeed;
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
         }
 
         if (isDead)
