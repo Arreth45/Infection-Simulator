@@ -3,21 +3,22 @@
 public class person : MonoBehaviour
 {
     public bool isInfected, isAlive, isDead;
-    private float humanRunspeed = 10;
-    private float zombieRunspeed = 9;
+    private float humanRunspeed = 2;
+    private float zombieRunspeed = 1;
     private int infected;
     private float zombieTime;
     private float zombieTimer = 0;
-    private Transform target;
+    private GameObject target;
 
-    private GameObject[] zombies;
+    private GameObject[] zombies, humans;
 
     // Use this for initialization
     void Start()
     {
+        gameObject.tag = "Human";
         isAlive = true;
         infected = Random.Range(1, 6);
-        if (infected == 1)
+        if (infected.Equals(1))
         {
             isAlive = false;
             isInfected = true;
@@ -27,27 +28,36 @@ public class person : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        zombies = GameObject.FindGameObjectsWithTag("Zombie");
+
         if (isAlive)
         {
+            zombies = GameObject.FindGameObjectsWithTag("Zombie");
             foreach (GameObject zombie in zombies)
             {
-                transform.Translate(-zombie.transform.localPosition);
+                //code to run from zombies
+                gameObject.transform.Translate(-zombie.transform.position);
             }
         }
 
         if (isInfected)
         {
-            gameObject.tag = "Zombie";
-            target = GameObject.FindGameObjectWithTag("Person").transform;
+            humans = GameObject.FindGameObjectsWithTag("Human");
             GetComponent<SpriteRenderer>().color = Color.green;
-            //zombieTimer += Time.deltaTime;
+            zombieTimer += Time.deltaTime * 0.01f;
+
             if (zombieTimer >= zombieTime)
             {
                 isInfected = false;
                 isDead = true;
             }
-            transform.Translate(target.localPosition);
+
+            if (target == null)
+            {
+                target = humans[Random.Range(0, humans.Length)];
+                gameObject.transform.Translate(target.transform.position);
+            }
+
+
         }
 
         if (isDead)
@@ -58,10 +68,11 @@ public class person : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (gameObject.tag == "Person")
+        if (gameObject.tag == "Human")
         {
             if (collision.gameObject.tag == "Zombie")
             {
+                gameObject.tag = "Zombie";
                 isAlive = false;
                 isInfected = true;
                 zombieTime = Random.Range(10, 21);

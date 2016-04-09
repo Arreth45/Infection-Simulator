@@ -2,7 +2,7 @@
 
 public class generator : MonoBehaviour
 {
-    public double maxPeople = 10;
+    public double maxPeople = 50;
     private double currentPeople;
     private double alivePeople;
     private double infectedPeople;
