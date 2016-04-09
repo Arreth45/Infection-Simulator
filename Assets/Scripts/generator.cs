@@ -23,7 +23,7 @@ public class generator : MonoBehaviour
     {
         if (currentPeople < maxPeople)
         {
-            Instantiate(Person, new Vector2(Random.Range(0, 11), Random.Range(0, -11)), Quaternion.identity);
+            Instantiate(Person, new Vector2(Random.Range(0, 21), Random.Range(0, -11)), Quaternion.identity);
             currentPeople++;
         }
     }
