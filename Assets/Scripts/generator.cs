@@ -3,11 +3,13 @@
 public class generator : MonoBehaviour
 {
     public double maxPeople = 50;
-    private double currentPeople;
-    private double alivePeople;
-    private double infectedPeople;
-    private double deadPeople;
+    public double currentPeople;
+    public double alivePeople;
+    public double infectedPeople;
+    public double deadPeople;
     public GameObject Person;
+    
+    public GameObject[] humans,zombies;
 
     // Use this for initialization
     void Start()
@@ -23,10 +25,13 @@ public class generator : MonoBehaviour
     }
     void AddPeople()
     {
-        if (currentPeople < maxPeople)
+        humans = GameObject.FindGameObjectsWithTag("Human");
+        zombies = GameObject.FindGameObjectsWithTag("Zombie");
+        if (humans.Length + zombies.Length < maxPeople)
         {
-            Instantiate(Person, new Vector2(Random.Range(0, 5), Random.Range(0, -5)), Quaternion.identity);
+            Instantiate(Person, new Vector2(Random.Range(0, 11), Random.Range(0, -11)), Quaternion.identity);
             currentPeople++;
+            alivePeople++;
         }
     }
 }

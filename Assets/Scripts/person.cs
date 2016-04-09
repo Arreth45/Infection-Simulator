@@ -6,23 +6,29 @@ public class person : MonoBehaviour
     private float humanRunspeed = 2;
     private float zombieRunspeed = 1;
     private int infected;
-    private float zombieTime;
+    private float zombieTime = -1;
     private float zombieTimer = 0;
     private GameObject target;
+    public GameObject manager;
 
     private GameObject[] zombies, humans;
 
     // Use this for initialization
     void Start()
     {
+        manager = GameObject.Find("_manager");
+        manager.GetComponent<generator>().alivePeople++;
         gameObject.tag = "Human";
         isAlive = true;
         infected = Random.Range(1, 3);
-        if (infected.Equals(1))
+        if (infected == 2)
         {
             isAlive = false;
             isInfected = true;
+            manager.GetComponent<generator>().infectedPeople++;
+            manager.GetComponent<generator>().alivePeople--;
         }
+
     }
 
     // Update is called once per frame
@@ -43,10 +49,11 @@ public class person : MonoBehaviour
         {
             humans = GameObject.FindGameObjectsWithTag("Human");
             GetComponent<SpriteRenderer>().color = Color.green;
-            zombieTimer += Time.deltaTime * 0.01f;
+            zombieTimer += 0.01f;
 
-            if (zombieTimer >= zombieTime)
+            if (zombieTimer > zombieTime)
             {
+                manager.GetComponent<generator>().deadPeople++;
                 isInfected = false;
                 isDead = true;
             }
@@ -60,6 +67,8 @@ public class person : MonoBehaviour
 
         if (isDead)
         {
+            manager.GetComponent<generator>().deadPeople++;
+            manager.GetComponent<generator>().infectedPeople--;
             Destroy(gameObject);
         }
     }
@@ -70,6 +79,8 @@ public class person : MonoBehaviour
         {
             if (collision.gameObject.tag == "Zombie")
             {
+                manager.GetComponent<generator>().alivePeople--;
+                manager.GetComponent<generator>().infectedPeople++;
                 Debug.Log("Mess with the best, Die like the rest");
                 gameObject.tag = "Zombie";
                 isAlive = false;
