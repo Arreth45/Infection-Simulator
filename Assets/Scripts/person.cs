@@ -17,7 +17,7 @@ public class person : MonoBehaviour
     {
         gameObject.tag = "Human";
         isAlive = true;
-        infected = Random.Range(1, 6);
+        infected = Random.Range(1, 3);
         if (infected.Equals(1))
         {
             isAlive = false;
