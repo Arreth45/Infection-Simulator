@@ -41,7 +41,7 @@ public class person : MonoBehaviour
             foreach (GameObject zombie in zombies)
             {
                 //code to run from zombies
-                gameObject.transform.Translate(-zombie.transform.position);
+                //Kevin is working on this
             }
         }
 
@@ -58,11 +58,8 @@ public class person : MonoBehaviour
                 isDead = true;
             }
 
-            if (target == null)
-            {
-                target = humans[Random.Range(0, humans.Length)];
-            }
-            gameObject.transform.Translate(target.transform.position);
+            //chase humans 
+            //Kevin is working on this
         }
 
         if (isDead)
