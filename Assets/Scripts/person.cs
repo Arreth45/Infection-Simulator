@@ -3,10 +3,10 @@
 public class person : MonoBehaviour
 {
     public bool isInfected, isAlive, isDead;
-    private float humanRunspeed = 2;
-    private float zombieRunspeed = 1;
+    private float humanRunspeed = 0.1f;
+    private float zombieRunspeed = 0.01f;
     public int infected;
-    private float zombieTime = 0;
+    private float zombieTime = 20;
     private float zombieTimer = 0;
     private GameObject target;
     public GameObject manager;
@@ -35,7 +35,6 @@ public class person : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (isAlive)
         {
             zombies = GameObject.FindGameObjectsWithTag("Zombie");
@@ -86,7 +85,6 @@ public class person : MonoBehaviour
                 gameObject.tag = "Zombie";
                 isAlive = false;
                 isInfected = true;
-                zombieTime = Random.Range(10, 21);
             }
         }
     }
