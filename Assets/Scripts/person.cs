@@ -70,6 +70,7 @@ public class person : MonoBehaviour
         {
             if (collision.gameObject.tag == "Zombie")
             {
+                Debug.Log("Mess with the best, Die like the rest");
                 gameObject.tag = "Zombie";
                 isAlive = false;
                 isInfected = true;
