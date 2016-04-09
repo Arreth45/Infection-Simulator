@@ -54,10 +54,8 @@ public class person : MonoBehaviour
             if (target == null)
             {
                 target = humans[Random.Range(0, humans.Length)];
-                gameObject.transform.Translate(target.transform.position);
             }
-
-
+            gameObject.transform.Translate(target.transform.position);
         }
 
         if (isDead)
