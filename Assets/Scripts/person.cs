@@ -71,6 +71,15 @@ public class person : MonoBehaviour
             //chase humans 
             float step = zombieRunspeed;
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+            
+            //"collision"
+            if (transform.position == target.transform.position){
+                manager.GetComponent<generator>().alivePeople--;
+                manager.GetComponent<generator>().infectedPeople++;
+                target.tag = "Zombie";
+                target.GetComponent<person>().isAlive = false;
+                target.GetComponent<person>().isInfected = true;
+            }
         }
 
         //code to update counters in generator
@@ -82,18 +91,4 @@ public class person : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (gameObject.tag == "Human")
-        {
-            if (collision.gameObject.tag == "Zombie")
-            {
-                manager.GetComponent<generator>().alivePeople--;
-                manager.GetComponent<generator>().infectedPeople++;
-                gameObject.tag = "Zombie";
-                isAlive = false;
-                isInfected = true;
-            }
-        }
-    }
 }
