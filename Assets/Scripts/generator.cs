@@ -10,6 +10,7 @@ public class generator : MonoBehaviour
     public double deadPeople;
     public GameObject Person;
     public int screenshotNumber = 0;
+    public float screenshotTime;
 
     public Text alive, infected, dead;
 
@@ -28,10 +29,16 @@ public class generator : MonoBehaviour
         AddPeople();
 
         //take screenshot
-        //Application.CaptureScreenshot("Screen shot: {0}.png", screenshotNumber);
-        screenshotNumber++;
+        screenshotTime += Time.deltaTime;
+        if (screenshotTime > 1)
+        {
+            Application.CaptureScreenshot("Assets/Screenshots/Screenshot" + screenshotNumber + ".png");
+            screenshotNumber++;
+            screenshotTime = 0;
+        }
 
         //update labels for counting
+
         alive.text = "Alive" + alivePeople;
         infected.text = "Infected" + infectedPeople;
         dead.text = "Dead" + deadPeople;
