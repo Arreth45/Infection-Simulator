@@ -8,16 +8,15 @@ public class generator : MonoBehaviour
     public double infectedPeople;
     public double deadPeople;
     public GameObject Person;
+    public int screenshotNumber = 0;
     
-    // Use this for initialization
-    void Start()
-    {      
-    }
-
     // Update is called once per frame
     void Update()
     {
         AddPeople();
+        //take screenshot
+        //Application.CaptureScreenshot("Screen shot: {0}.png", screenshotNumber);
+        screenshotNumber++;
     }
     void AddPeople()
     {

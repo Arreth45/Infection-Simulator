@@ -8,6 +8,8 @@ public class person : MonoBehaviour
     public int infected;
     private float zombieTime = 20;
     private float zombieTimer = 0;
+    private int x, y;
+    private Vector3 point;
     public GameObject target;
     public GameObject manager;
 
@@ -35,21 +37,25 @@ public class person : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        x = Random.Range(0, 10);
+        y = Random.Range(0, 10);
+        point = new Vector3(x, y, 0);
+
+        //Code for Human Person
         if (isAlive)
         {
-            zombies = GameObject.FindGameObjectsWithTag("Zombie");
-            foreach (GameObject zombie in zombies)
-            {
-                //code to run from zombies
-                float step = humanRunspeed;
-                transform.position = Vector3.MoveTowards(transform.position, -zombie.transform.position, step);
-            }
+            //code to run from zombies
+            float step = humanRunspeed;
+
+            transform.position = Vector3.MoveTowards(transform.position, point, step);
         }
 
+        // Code for Zombie Person
         if (isInfected)
         {
-            humans = GameObject.FindGameObjectsWithTag("Human");
             GetComponent<SpriteRenderer>().color = Color.green;
+            humans = GameObject.FindGameObjectsWithTag("Human");
             zombieTimer += Time.deltaTime;
 
             if (zombieTimer > zombieTime)
@@ -59,6 +65,7 @@ public class person : MonoBehaviour
                 isDead = true;
             }
 
+            // if no target get a target
             if (target == null)
             {
                 target = humans[Random.Range(0, humans.Length)];
@@ -69,6 +76,7 @@ public class person : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
         }
 
+        //code to update counters in generator
         if (isDead)
         {
             manager.GetComponent<generator>().deadPeople++;
