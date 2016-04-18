@@ -3,12 +3,12 @@
 public class person : MonoBehaviour
 {
     public bool isInfected, isAlive, isDead;
-    private float humanRunspeed = 0.1f;
-    private float zombieRunspeed = 0.01f;
+    private float humanRunspeed = 0.2f;
+    private float zombieRunspeed = 0.1f;
     public int infected;
     private float zombieTime = 20;
     private float zombieTimer = 0;
-    private int x, y;
+    private float x, y;
     private Vector3 point;
     public GameObject target;
     public GameObject manager;
@@ -37,17 +37,14 @@ public class person : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        x = Random.Range(0, 10);
-        y = Random.Range(0, 10);
-        point = new Vector3(x, y, 0);
-
         //Code for Human Person
         if (isAlive)
         {
             //code to run from zombies
             float step = humanRunspeed;
-
+            x = Random.Range(0, 20);
+            y = Random.Range(0, 20);
+            point = new Vector3(x, y, 0);
             transform.position = Vector3.MoveTowards(transform.position, point, step);
         }
 
