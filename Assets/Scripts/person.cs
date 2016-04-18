@@ -90,7 +90,6 @@ public class person : MonoBehaviour
             {
                 manager.GetComponent<generator>().alivePeople--;
                 manager.GetComponent<generator>().infectedPeople++;
-                Debug.Log("Mess with the best, Die like the rest");
                 gameObject.tag = "Zombie";
                 isAlive = false;
                 isInfected = true;

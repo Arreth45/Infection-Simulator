@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class generator : MonoBehaviour
 {
@@ -9,14 +10,31 @@ public class generator : MonoBehaviour
     public double deadPeople;
     public GameObject Person;
     public int screenshotNumber = 0;
-    
+
+    public Text alive, infected, dead;
+
+    void start()
+    {
+        /*
+        alive = GameObject.Find("aliveLabel").GetComponent<Text>();
+        infected = GameObject.Find("zombieLabel").GetComponent<Text>();
+        dead = GameObject.Find("deadLabel").GetComponent<Text>();
+        */
+    }
+
     // Update is called once per frame
     void Update()
     {
         AddPeople();
+
         //take screenshot
         //Application.CaptureScreenshot("Screen shot: {0}.png", screenshotNumber);
         screenshotNumber++;
+
+        //update labels for counting
+        alive.text = "Alive" + alivePeople;
+        infected.text = "Infected" + infectedPeople;
+        dead.text = "Dead" + deadPeople;
     }
     void AddPeople()
     {
